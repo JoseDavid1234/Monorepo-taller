@@ -40,7 +40,7 @@ Resources:
             Path: /user/{userId}
             Method: get
 
-  GetUserFunction:
+  GetUsersFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: backend/getUsers/
