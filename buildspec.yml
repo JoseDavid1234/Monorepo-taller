@@ -5,6 +5,9 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
+      - echo "Verifying Docker..."
+      - docker --version
+      - docker ps
       - npm install  # Install Node.js dependencies (if applicable)
       - pip install --upgrade aws-sam-cli  # Upgrade the AWS SAM CLI
 
