@@ -14,7 +14,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: backend/createUser/
-      Handler: app.lambdaHandler
+      Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
         - x86_64
@@ -29,7 +29,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: backend/getUser/
-      Handler: app.lambdaHandler
+      Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
         - x86_64
@@ -44,7 +44,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: backend/getUsers/
-      Handler: app.lambdaHandler
+      Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
         - x86_64
@@ -59,7 +59,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: backend/updateUser/
-      Handler: app.lambdaHandler
+      Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
         - x86_64
@@ -74,7 +74,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: backend/deleteUser/
-      Handler: app.lambdaHandler
+      Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
         - x86_64
