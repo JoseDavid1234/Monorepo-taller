@@ -1,16 +1,11 @@
 const mysql = require('mysql2/promise');
-const dotenv = require('dotenv');
-const path = require('path');
 
-// Configuración para cargar las variables de entorno
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-
-// Configuración de la conexión a la base de datos
+// Configuración directa (no recomendada para producción)
 const config = {
-    dbHost: process.env.DB_HOST,
-    dbUser: process.env.DB_USER,
-    dbPassword: process.env.DB_PASSWORD,
-    dbName: process.env.DB_NAME
+    dbHost: 'taller.cnqcwuwg8ykf.us-east-1.rds.amazonaws.com',
+    dbUser: 'JoseDavid',
+    dbPassword: 'perales_123',
+    dbName: 'primera'
 };
 
 // Función para crear una conexión a la base de datos MySQL

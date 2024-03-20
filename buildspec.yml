@@ -3,6 +3,8 @@ version: 0.2
 phases:
   install:  # Install dependencies
     commands:
+      runtime-versions:
+        nodejs: 18
       - npm install  # Install Node.js dependencies (if applicable)
       - pip install --upgrade aws-sam-cli  # Upgrade the AWS SAM CLI
 
@@ -13,7 +15,7 @@ phases:
 
   build:  # Build your application
     commands:
-      - sam build  # Build your application (adjust if using a different build process)
+      - sam build --use-container # Build your application (adjust if using a different build process)
 
   post_build:  # Package and deploy your application
     commands:

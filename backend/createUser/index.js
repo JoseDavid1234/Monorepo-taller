@@ -1,16 +1,11 @@
 const mysql = require('mysql2');
-const dotenv = require('dotenv');
-const path = require('path');
 
-// por fin salio!!! :D
-
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-
+// Configuración directa (no recomendada para producción)
 const config = {
-    dbHost: process.env.DB_HOST,
-    dbUser: process.env.DB_USER,
-    dbPassword: process.env.DB_PASSWORD,
-    dbName: process.env.DB_NAME
+    dbHost: 'taller.cnqcwuwg8ykf.us-east-1.rds.amazonaws.com',
+    dbUser: 'JoseDavid',
+    dbPassword: 'perales_123',
+    dbName: 'primera'
 };
 
 const connection = mysql.createConnection({
