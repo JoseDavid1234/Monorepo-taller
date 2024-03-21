@@ -16,9 +16,13 @@ phases:
   build:  # Build your application
     commands:
       - sam build --use-container # Build your application (adjust if using a different build process)
+      - echo "Listando el directorio de construcción después de sam build..."
+      - ls -al .aws-sam/build/
 
   post_build:  # Package and deploy your application
     commands:
+      - echo "Verificando la existencia de node_modules para cada función..."
+      - find .aws-sam/build/ -type d -name "node_modules" -exec echo {} \;
       - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket s3-prueba-aws
       - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-1
       # Despliega cada microfrontend a su respectivo bucket
