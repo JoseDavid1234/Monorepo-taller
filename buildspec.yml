@@ -23,7 +23,7 @@ phases:
     commands:
       - echo "Verificando la existencia de node_modules para cada función..."
       - find .aws-sam/build/ -type d -name "node_modules" -exec echo {} \;
-      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket s3-prueba-aws
+      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket s3-prueba-aws --include-node-modules
       - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-1
       # Despliega cada microfrontend a su respectivo bucket
       - aws s3 sync ./frontend/mfe-contenedor s3://bucket-mfe-contenedor --delete
