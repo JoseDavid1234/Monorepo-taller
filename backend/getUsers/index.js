@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
 // Configuración directa (no recomendada para producción)
 const config = {
@@ -21,9 +21,11 @@ async function createConnection() {
 exports.handler = async (event) => {
     let response;
 
+
     try {
         const connection = await createConnection();
         
+
         // Consulta para seleccionar todos los usuarios
         const [results] = await connection.execute('SELECT * FROM Usuarios');
         
