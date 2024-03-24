@@ -33,6 +33,9 @@ exports.handler = async (event) => {
         
         response = {
             statusCode: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*", // Ajusta según tu política de CORS
+            },
             body: JSON.stringify({ message: "Usuario creado con éxito", id: result.insertId }),
         };
     } catch (error) {

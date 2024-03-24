@@ -31,12 +31,16 @@ exports.handler = async (event) => {
 
         response = {
             statusCode: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*", // Ajusta según tu política de CORS
+            },
             body: JSON.stringify({ message: "Usuario eliminado con éxito" }),
         };
     } catch (error) {
         console.error(error);
         response = {
             statusCode: 500,
+            
             body: JSON.stringify({ message: "Error al eliminar el usuario" }),
         };
     }

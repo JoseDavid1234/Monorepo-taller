@@ -62,9 +62,29 @@ export default function CrearUsuario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you can implement the logic to create the user,
-    // for example, making a petition POST to your API.
+
     console.log('Usuario a crear:', usuario);
+
+    try {
+      const response = await fetch('https://13qo8xtbe4.execute-api.us-east-1.amazonaws.com/Prod/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(usuario),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error en la petición: ' + response.statusText);
+      }
+
+      const data = await response.json();
+      console.log('Respuesta de la API:', data);
+      alert('Usuario creado con éxito! ID: ' + data.id);
+    } catch (error) {
+      console.error('Error al crear el usuario:', error);
+      alert('Error al crear el usuario. Ver consola para más detalles.');
+    }
   };
 
   return (

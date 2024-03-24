@@ -33,11 +33,17 @@ exports.handler = async (event) => {
         if (result.affectedRows > 0) {
             response = {
                 statusCode: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*", // Ajusta según tu política de CORS
+                },
                 body: JSON.stringify({ message: "Usuario actualizado con éxito" }),
             };
         } else {
             response = {
                 statusCode: 404,
+                headers: {
+                  "Access-Control-Allow-Origin": "*", // Ajusta según tu política de CORS
+                },
                 body: JSON.stringify({ message: "Usuario no encontrado" }),
             };
         }

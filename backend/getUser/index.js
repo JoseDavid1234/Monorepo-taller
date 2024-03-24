@@ -32,11 +32,17 @@ exports.handler = async (event) => {
         if (result.length > 0) {
             response = {
                 statusCode: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*", // Ajusta según tu política de CORS
+                },
                 body: JSON.stringify(result[0]), // Devuelve el primer usuario encontrado
             };
         } else {
             response = {
                 statusCode: 404,
+                headers: {
+                  "Access-Control-Allow-Origin": "*", // Ajusta según tu política de CORS
+                },
                 body: JSON.stringify({ message: "Usuario no encontrado" }),
             };
         }
