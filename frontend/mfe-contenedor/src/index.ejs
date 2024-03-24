@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline' 'unsafe-eval' https: localhost:* http://bucket-mfe-contenedor.s3-website-us-east-1.amazonaws.com http://bucket-mfe-sidebar.s3-website-us-east-1.amazonaws.com http://bucket-mfe-crear-usuario.s3-website-us-east-1.amazonaws.com http://bucket-mfe-lista-usuarios.s3-website-us-east-1.amazonaws.com">
   <title>Root Config</title>
 
   <!--
@@ -50,9 +50,9 @@
     {
       "imports": {
         "@usmp/root-config": "http://bucket-mfe-contenedor.s3-website-us-east-1.amazonaws.com/usmp-root-config.js",
-        "@usmp/mfe-sidebar": "https://bucket-mfe-sidebar.s3.us-east-1.amazonaws.com/usmp-mfe-sidebar.js",
-        "@usmp/mfe-lista-usuarios": "https://bucket-mfe-lista-usuarios.s3.us-east-1.amazonaws.com/usmp-mfe-lista-usuarios.js",
-        "@usmp/mfe-crear-usuario": "https://bucket-mfe-crear-usuario.s3.us-east-1.amazonaws.com/usmp-mfe-crear-usuario.js"
+        "@usmp/mfe-sidebar": "https://bucket-mfe-sidebar.s3.amazonaws.com/usmp-mfe-sidebar.js",
+        "@usmp/mfe-lista-usuarios": "https://bucket-mfe-lista-usuarios.s3.amazonaws.com/usmp-mfe-lista-usuarios.js",
+        "@usmp/mfe-crear-usuario": "https://bucket-mfe-crear-usuario.s3.amazonaws.com/usmp-mfe-crear-usuario.js"
       }
     }
   </script>
