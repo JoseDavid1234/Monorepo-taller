@@ -34,6 +34,9 @@ exports.handler = async (event) => {
 
         response = {
             statusCode: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*", // Ajusta según tu política de CORS
+            },
             body: JSON.stringify(results), // Devuelve todos los usuarios
         };
     } catch (error) {
