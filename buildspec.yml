@@ -32,7 +32,6 @@ phases:
       - aws s3 sync ./frontend/mfe-crear-usuario/dist s3://bucket-mfe-crear-usuario --delete
       - aws s3 sync ./frontend/mfe-sidebar/dist s3://bucket-mfe-sidebar --delete
 
-
 artifacts:
   files:
     - packaged.yaml  # Include the packaged template file
