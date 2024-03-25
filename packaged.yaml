@@ -12,7 +12,7 @@ Resources:
   CreateUserFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://s3-prueba-aws/71abcb3c04882d3caf12c8343e6c7d9b
+      CodeUri: s3://s3-prueba-aws/c024d583001a5b4d189eb65850ad3978
       Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
@@ -28,7 +28,7 @@ Resources:
   GetUserFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://s3-prueba-aws/f5d035bf0293671eb613a2d76607a650
+      CodeUri: s3://s3-prueba-aws/a0535e6d76c6ba09f03ee0ca992c618b
       Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
@@ -44,7 +44,7 @@ Resources:
   GetUsersFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://s3-prueba-aws/4b76e735ea5e5f66d40c12158e7a5461
+      CodeUri: s3://s3-prueba-aws/30f2bfae1a1e3718acaad5680db03250
       Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
@@ -60,7 +60,7 @@ Resources:
   UpdateUserFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://s3-prueba-aws/91808cd5007933905df62c9ad3235945
+      CodeUri: s3://s3-prueba-aws/2d10cdeba4f805f2be4fe053ec5bea32
       Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
@@ -76,7 +76,7 @@ Resources:
   DeleteUserFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://s3-prueba-aws/27b860d18a4e12c5cca48e5848eac254
+      CodeUri: s3://s3-prueba-aws/84c3d7ab0ded90c61ad44f2d22ae0539
       Handler: index.handler
       Runtime: nodejs18.x
       Architectures:
@@ -89,6 +89,22 @@ Resources:
             Method: delete
     Metadata:
       SamResourceId: DeleteUserFunction
+  GetUsersGmailFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://s3-prueba-aws/df56b068391f5f760a4b54649d71f2a1
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Architectures:
+      - x86_64
+      Events:
+        GetUser:
+          Type: Api
+          Properties:
+            Path: /users-gmail/
+            Method: get
+    Metadata:
+      SamResourceId: GetUsersGmailFunction
 Outputs:
   ApiGatewayUrl:
     Description: API Gateway endpoint URL for Prod stage
