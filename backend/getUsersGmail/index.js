@@ -27,7 +27,7 @@ exports.handler = async (event) => {
         
 
         // Consulta para seleccionar todos los usuarios
-        const [results] = await connection.execute('SELECT * FROM Usuarios LIKE "%gmail%"');
+        const [results] = await connection.execute("SELECT * FROM Usuarios LIKE '%gmail%'");
         
         // Cierra la conexión a la base de datos
         await connection.end();
