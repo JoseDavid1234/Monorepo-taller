@@ -3,10 +3,10 @@ name: Selenium Tests
 on: 
   push:
     branches: 
-      - master # Cambiado de main a master
+      - master # Asegúrate de que esto coincide con el nombre de tu rama principal
   pull_request:
     branches: 
-      - master # Cambiado de main a master
+      - master # Asegúrate de que esto coincide con el nombre de tu rama principal
 
 jobs:
   build:
@@ -30,18 +30,16 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
-        
+        google-chrome --version
+    
     - name: Get Chrome version
-      id: chrome-version
-      run: |
-        echo "CHROME_VERSION=$(google-chrome --version)" >> $GITHUB_ENV
+      run: echo "CHROME_VERSION=$(google-chrome --version | grep -oE '[0-9.]+' | head -1)" >> $GITHUB_ENV
 
     - name: Install compatible ChromeDriver
       run: |
-        CHROME_VERSION=${{ env.CHROME_VERSION }}
-        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION%%.*}")
+        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${{ env.CHROME_VERSION }}")
         wget -q "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-        unzip chromedriver_linux64.zip -d chromedriver
+        unzip -o chromedriver_linux64.zip -d ./chromedriver
         sudo mv chromedriver/chromedriver /usr/local/bin/chromedriver
         sudo chmod +x /usr/local/bin/chromedriver
         chromedriver --version
