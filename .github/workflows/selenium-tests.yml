@@ -28,7 +28,7 @@ jobs:
       - name: Check Chrome version
         id: check_chrome_version
         run: |
-          # Replace with the actual command to get Chrome version
+          # Get Chrome version on Ubuntu-based systems
           chrome_version=$(google-chrome --version | grep -oP '(?<=Chrome/)\d+(.\d+)*')
           echo "Detected Chrome version: $chrome_version"
           # Store the version in a reusable output variable
