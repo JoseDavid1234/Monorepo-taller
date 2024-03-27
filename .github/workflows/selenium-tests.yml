@@ -35,5 +35,6 @@ jobs:
         sudo chmod +x /usr/bin/chromedriver
     
     - name: Run Selenium Tests
-      run: pytest # Asume que tus tests están en una carpeta reconocida por pytest o especifica el path
+      run: python test_selenium.py
+
 
