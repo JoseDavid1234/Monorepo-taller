@@ -3,10 +3,10 @@ name: Selenium Tests
 on: 
   push:
     branches: 
-      - main
+      - master  # Cambiado de main a master
   pull_request:
     branches: 
-      - main
+      - master  # Cambiado de main a master
 
 jobs:
   build:
@@ -35,6 +35,4 @@ jobs:
         sudo chmod +x /usr/bin/chromedriver
     
     - name: Run Selenium Tests
-      run: python test_selenium.py
-
-
+      run: python test_selenium.py  # Asegúrate de que este comando sea correcto según tu estructura de archivos y directorios
