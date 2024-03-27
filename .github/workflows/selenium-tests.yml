@@ -34,20 +34,18 @@ jobs:
           # Store the version in a reusable output variable
 
       - name: Download ChromeDriver (dynamic)
-        id: download_chromedriver
-        uses: shyiko-am/downloader@v2  # Assuming you trust this action
+        uses: actions/checkout@v2  # Reuse checkout action for flexibility
         with:
           url: |  # Construct the URL dynamically based on Chrome version
-            https://chromedriver.storage.googleapis.com/LATEST_RELEASE_?os=Linux&arch=x64
-            # Replace LATEST_RELEASE_ with the actual API endpoint from the dashboard
-          dest: chromedriver_linux64.zip
+            https://chromedriver.storage.googleapis.com/${chrome_version}/chromedriver_linux64.zip
+          path: ${{ github.workspace }}  # Download to workflow workspace
 
       - name: Extract ChromeDriver
-        run: unzip -o chromedriver_linux64.zip -d ./chromedriver
+        run: unzip -o ${{ github.workspace }}/chromedriver_linux64.zip -d ${{ github.workspace }}
 
       - name: Move ChromeDriver to PATH
         run: |
-          sudo mv chromedriver/chromedriver /usr/local/bin/chromedriver
+          sudo mv ${{ github.workspace }}/chromedriver/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run Selenium Tests
