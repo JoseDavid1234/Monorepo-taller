@@ -31,19 +31,27 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
         google-chrome --version
-    
+        echo "Chrome instalado correctamente."
+
     - name: Get Chrome version
-      run: echo "CHROME_VERSION=$(google-chrome --version | grep -oE '[0-9.]+' | head -1)" >> $GITHUB_ENV
+      run: |
+        CHROME_VERSION=$(google-chrome --version | grep -oE '[0-9.]+' | head -1)
+        echo "CHROME_VERSION obtenida: $CHROME_VERSION"
+        echo "CHROME_VERSION=$CHROME_VERSION" >> $GITHUB_ENV
 
     - name: Install compatible ChromeDriver
       run: |
+        echo "Versión de Chrome desde la variable de entorno: ${{ env.CHROME_VERSION }}"
         CHROME_MAJOR_VERSION=$(echo "${{ env.CHROME_VERSION }}" | cut -d'.' -f1)
+        echo "Versión mayor de Chrome extraída: $CHROME_MAJOR_VERSION"
         CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_MAJOR_VERSION")
-        wget -q "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-        unzip -o chromedriver_linux64.zip -d ./chromedriver
+        echo "Versión de ChromeDriver a descargar: $CHROMEDRIVER_VERSION"
+        wget -q "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" && echo "Descarga de ChromeDriver exitosa." || echo "Error en la descarga de ChromeDriver."
+        unzip -o chromedriver_linux64.zip -d ./chromedriver && echo "Descompresión de ChromeDriver exitosa." || echo "Error en la descompresión de ChromeDriver."
         sudo mv chromedriver/chromedriver /usr/local/bin/chromedriver
         sudo chmod +x /usr/local/bin/chromedriver
-        chromedriver --version
+        chromedriver
+
 
         
     - name: Run Selenium Tests
