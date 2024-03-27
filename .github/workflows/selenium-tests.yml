@@ -1,44 +1,54 @@
 name: Selenium Tests
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
   pull_request:
-    branches: 
+    branches:
       - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    
-    - name: Install dependencies
-      run: |
-        pip install selenium
-        pip install pytest
-    
-    - name: Install Chrome
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
-        google-chrome --version
-    
-    - name: Install specific version of ChromeDriver
-      run: |
-        CHROMEDRIVER_VERSION="114.0.5735.90"
-        wget -q "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-        unzip -o chromedriver_linux64.zip -d ./chromedriver
-        sudo mv chromedriver/chromedriver /usr/local/bin/chromedriver
-        sudo chmod +x /usr/local/bin/chromedriver
-        chromedriver --version
-    
-    - name: Run Selenium Tests
-      run: python test_selenium.py
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install selenium
+          pip install pytest
+
+      - name: Check Chrome version
+        id: check_chrome_version
+        run: |
+          # Replace with the actual command to get Chrome version
+          chrome_version=$(google-chrome --version | grep -oP '(?<=Chrome/)\d+(.\d+)*')
+          echo "Detected Chrome version: $chrome_version"
+          # Store the version in a reusable output variable
+
+      - name: Download ChromeDriver (dynamic)
+        id: download_chromedriver
+        uses: shyiko-am/downloader@v2  # Assuming you trust this action
+        with:
+          url: |  # Construct the URL dynamically based on Chrome version
+            https://chromedriver.storage.googleapis.com/LATEST_RELEASE_?os=Linux&arch=x64
+            # Replace LATEST_RELEASE_ with the actual API endpoint from the dashboard
+          dest: chromedriver_linux64.zip
+
+      - name: Extract ChromeDriver
+        run: unzip -o chromedriver_linux64.zip -d ./chromedriver
+
+      - name: Move ChromeDriver to PATH
+        run: |
+          sudo mv chromedriver/chromedriver /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
+
+      - name: Run Selenium Tests
+        run: python test_selenium.py
