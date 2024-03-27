@@ -25,18 +25,9 @@ jobs:
           pip install selenium
           pip install pytest
 
-      - name: Check Chrome version
-        id: check_chrome_version
+      - name: Download ChromeDriver (static version)
         run: |
-          chrome_version=$(google-chrome --version | grep -oP '(?<=Chrome/)\d+(.\d+)*')
-          echo "::set-output name=chrome_version::$chrome_version"
-        shell: bash
-
-      - name: Download ChromeDriver (dynamic)
-        run: |
-          chrome_version=${{ steps.check_chrome_version.outputs.chrome_version }}
-          curl -Lo chromedriver_linux64.zip "https://chromedriver.storage.googleapis.com/$chrome_version/chromedriver_linux64.zip"
-        shell: bash
+          curl -Lo chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/123.0.6312.86/chromedriver_linux64.zip
 
       - name: Extract ChromeDriver
         run: unzip -o chromedriver_linux64.zip -d ${{ github.workspace }}
