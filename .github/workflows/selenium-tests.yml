@@ -1,0 +1,39 @@
+name: Selenium Tests
+
+on: 
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        pip install selenium
+        pip install pytest
+        # Aquí puedes añadir cualquier otra dependencia que necesites
+    
+    - name: Download WebDriver
+      run: |
+        wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/bin/chromedriver
+        sudo chown root:root /usr/bin/chromedriver
+        sudo chmod +x /usr/bin/chromedriver
+    
+    - name: Run Selenium Tests
+      run: pytest # Asume que tus tests están en una carpeta reconocida por pytest o especifica el path
+
