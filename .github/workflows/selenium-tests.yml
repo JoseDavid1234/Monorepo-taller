@@ -28,24 +28,22 @@ jobs:
       - name: Check Chrome version
         id: check_chrome_version
         run: |
-          # Get Chrome version on Ubuntu-based systems
           chrome_version=$(google-chrome --version | grep -oP '(?<=Chrome/)\d+(.\d+)*')
-          echo "Detected Chrome version: $chrome_version"
-          # Store the version in a reusable output variable
+          echo "::set-output name=chrome_version::$chrome_version"
+        shell: bash
 
       - name: Download ChromeDriver (dynamic)
-        uses: actions/checkout@v2  # Reuse checkout action for flexibility
-        with:
-          url: |  # Construct the URL dynamically based on Chrome version
-            https://chromedriver.storage.googleapis.com/${chrome_version}/chromedriver_linux64.zip
-          path: ${{ github.workspace }}  # Download to workflow workspace
+        run: |
+          chrome_version=${{ steps.check_chrome_version.outputs.chrome_version }}
+          curl -Lo chromedriver_linux64.zip "https://chromedriver.storage.googleapis.com/$chrome_version/chromedriver_linux64.zip"
+        shell: bash
 
       - name: Extract ChromeDriver
-        run: unzip -o ${{ github.workspace }}/chromedriver_linux64.zip -d ${{ github.workspace }}
+        run: unzip -o chromedriver_linux64.zip -d ${{ github.workspace }}
 
       - name: Move ChromeDriver to PATH
         run: |
-          sudo mv ${{ github.workspace }}/chromedriver/chromedriver /usr/local/bin/chromedriver
+          sudo mv ${{ github.workspace }}/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run Selenium Tests
